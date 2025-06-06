@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "AI Text Explainer",
+  "version": "1.0",
+  "description": "Get AI-powered explanations for selected text",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/*",
+    "https://www.geeksforgeeks.org/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["extension/styles.css"],
+      "js": ["extension/content.js"]
+    }
+  ],
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+} 

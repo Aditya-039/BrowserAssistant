@@ -1,0 +1,75 @@
+*Context (recap):*
+We're building a Chrome extension that instantly explains selected text (words, sentences, paragraphs) using the GPT-3.5-turbo model via OpenAI’s API.
+
+---
+
+## 📌 *Core Requirements (Reiterated & Updated):*
+
+* *Trigger:*
+  Automatically activate when user selects (highlights) text on any webpage.
+
+* *Action:*
+  Immediately show a small popup positioned directly next to the highlighted text, displaying an easy-to-understand GPT-generated explanation.
+
+* *Explanation Details (Always Follow Exactly):*
+
+  plaintext
+  "Give a clear explanation of the following text in a simple and easy way within 50 words:
+  {selected_text_here}"
+  
+
+  * Use *GPT-3.5-turbo* model (fast API response prioritized).
+
+* *Popup UI/UX:*
+
+  * Compact and minimalistic design (rounded corners, subtle shadow, neutral background).
+  * Slightly larger than the reference image (attached earlier) to comfortably fit a 50-word explanation.
+  * Close button (✕) at the top-right corner.
+  * Automatically dismiss when clicking anywhere outside the popup.
+  * Include a small link:
+    "Explain more (Open advanced GPT)"
+    Opens standard ChatGPT (GPT-4o) interface in a new browser tab.
+
+---
+
+## ✅ *Additional Implementation Details (Clearly Specified for GPT-4o Mini High):*
+
+### ① *Manifest & Permissions (Important!):*
+
+* Clearly specify entries in manifest.json:
+
+  * Content scripts matching pattern: "matches": ["<all_urls>"]
+  * Permissions explicitly set to "permissions": ["scripting"]
+  * Host permissions set clearly for OpenAI API:
+
+    json
+    "host_permissions": ["https://api.openai.com/*"]
+    
+
+### ② *Error Handling (Robustness):*
+
+* Handle OpenAI API failures gracefully:
+
+  * If API call fails, popup must display a clear, user-friendly message like:
+    "Couldn't fetch explanation. Try again later."
+
+### ③ *Debounce Implementation (Efficiency & UX):*
+
+* Implement debounce logic with a delay of *300 ms*.
+
+  * Ensures small adjustments to selected text do not trigger unnecessary multiple API calls.
+  * Clear logic:
+    "Wait 300ms after the user stops selecting text before triggering API call."
+
+### ④ *Styling & Z-Index (Visual Clarity):*
+
+* Popup CSS should explicitly set a high z-index (e.g. z-index: 9999) to guarantee it always appears above webpage content and is never obscured.
+
+---
+
+## 🖥 *Clearly Recommended Functions (Code Structure):*
+
+* getSelectedText(): Retrieves highlighted text.
+* createPopup(text, x, y): Generates and positions popup box correctly.
+* fetchGPTExplanation(prompt): API logic to interact with OpenAI API, handle responses, and failures.
+* closePopup(): Closes and removes popup neatly.

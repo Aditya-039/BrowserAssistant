@@ -1,0 +1,325 @@
+/* AI Text Explainer - Content Styles */
+/* Ensure extension popup always appears above page content */
+
+.ai-text-explainer-popup {
+  position: absolute !important;
+  z-index: 999999 !important;
+  width: 320px !important;
+  max-width: 320px !important;
+  background: rgba(13, 17, 23, 0.95) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 10px 20px -8px rgba(168, 85, 247, 0.2) !important;
+  color: #fafafa !important;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  animation: aiExplainerFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+}
+
+.ai-text-explainer-popup * {
+  box-sizing: border-box !important;
+}
+
+.ai-text-explainer-popup::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -8px !important;
+  left: 20px !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 8px solid transparent !important;
+  border-right: 8px solid transparent !important;
+  border-bottom: 8px solid rgba(13, 17, 23, 0.95) !important;
+  filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1)) !important;
+}
+
+@keyframes aiExplainerFadeIn {
+  0% { 
+    opacity: 0 !important; 
+    transform: scale(0.9) translateY(10px) !important; 
+  }
+  100% { 
+    opacity: 1 !important; 
+    transform: scale(1) translateY(0) !important; 
+  }
+}
+
+@keyframes aiExplainerSpin {
+  from { transform: rotate(0deg) !important; }
+  to { transform: rotate(360deg) !important; }
+}
+
+/* Override any page styles that might interfere */
+.ai-text-explainer-popup button {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  font-family: inherit !important;
+}
+
+.ai-text-explainer-popup button:hover {
+  opacity: 0.8 !important;
+}
+
+.ai-text-explainer-popup .close-button {
+  color: #6b7280 !important;
+  font-size: 18px !important;
+  padding: 0 !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+}
+
+.ai-text-explainer-popup .close-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.ai-text-explainer-popup .action-button {
+  color: #a855f7 !important;
+  font-size: 12px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.ai-text-explainer-popup .action-button:hover {
+  color: #c084fc !important;
+}
+
+.ai-text-explainer-popup .loading-icon {
+  width: 16px !important;
+  height: 16px !important;
+  color: #a855f7 !important;
+  animation: aiExplainerSpin 1s linear infinite !important;
+}
+
+.ai-text-explainer-popup .warning-icon {
+  width: 16px !important;
+  height: 16px !important;
+  color: #f59e0b !important;
+  flex-shrink: 0 !important;
+}
+
+.ai-text-explainer-popup p {
+  margin: 0 !important;
+  color: #fafafa !important;
+  line-height: 1.6 !important;
+  font-size: 14px !important;
+}
+
+/* Ensure the popup doesn't interfere with page interactions */
+.ai-text-explainer-popup {
+  pointer-events: auto !important;
+}
+
+/* Hide selection when popup is active */
+.ai-text-explainer-active ::selection {
+  background: transparent !important;
+}
+
+.ai-cmd-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  min-width: 300px;
+  max-width: 800px;
+  height: 100vh;
+  background: #1e1e1e;
+  color: #b4b4b4;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  z-index: 999999;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-cmd-panel.visible {
+  transform: translateX(0);
+}
+
+.ai-cmd-resize-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  cursor: ew-resize;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.ai-cmd-resize-handle:hover,
+.ai-cmd-resize-handle.active {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+/* Add a visual indicator when resizing */
+.ai-cmd-panel.resizing {
+  transition: none;
+  user-select: none;
+}
+
+.ai-cmd-panel.resizing .ai-cmd-resize-handle {
+  background: rgba(168, 85, 247, 0.3);
+}
+
+.ai-cmd-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ai-cmd-title {
+  color: #a855f7;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-cmd-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.ai-cmd-close:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.ai-cmd-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.ai-cmd-section {
+  margin-bottom: 24px;
+}
+
+.ai-cmd-section-title {
+  color: #a855f7;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-cmd-code {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  position: relative;
+  word-break: break-word;
+}
+
+.ai-cmd-code code {
+  display: inline-block;
+  min-width: 100%;
+  font-family: inherit;
+}
+
+.ai-cmd-code .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: #a855f7;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+}
+
+.ai-cmd-explanation {
+  line-height: 1.6;
+  color: #b4b4b4;
+}
+
+.ai-cmd-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.ai-cmd-code:hover .ai-cmd-copy {
+  opacity: 1;
+}
+
+.ai-cmd-copy:hover {
+  background: rgba(168, 85, 247, 0.2);
+}
+
+.ai-cmd-copy.copied {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scrollbar styling */
+.ai-cmd-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ai-cmd-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ai-cmd-content::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 4px;
+}
+
+.ai-cmd-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.3);
+}

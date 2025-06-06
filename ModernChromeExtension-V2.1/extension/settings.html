@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Text Explainer Settings</title>
+    <style>
+        :root {
+            --bg-primary: #1a1b26;
+            --bg-secondary: #24283b;
+            --text-primary: #c0caf5;
+            --text-secondary: #7dcfff;
+            --accent: #7aa2f7;
+            --border: #414868;
+            --success: #9ece6a;
+            --error: #f7768e;
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        h1, h2 {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mode-option {
+            flex: 1;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-option:hover {
+            border-color: var(--accent);
+        }
+
+        .mode-option.active {
+            border-color: var(--accent);
+            background: rgba(122, 162, 247, 0.1);
+        }
+
+        .mode-option input[type="radio"] {
+            display: none;
+        }
+
+        .mode-option label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .custom-prompt {
+            margin-bottom: 20px;
+        }
+
+        .custom-prompt textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            resize: vertical;
+            margin-top: 10px;
+        }
+
+        .custom-prompt textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            border-color: var(--accent);
+            background: rgba(122, 162, 247, 0.1);
+        }
+
+        button.save {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+        }
+
+        button.save:hover {
+            opacity: 0.9;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .status.success {
+            display: block;
+            background: rgba(158, 206, 106, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status.error {
+            display: block;
+            background: rgba(247, 118, 142, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ AI Text Explainer Settings</h1>
+        
+        <div class="section">
+            <h2>🧠 Choose Explanation Mode</h2>
+            <div class="mode-selector">
+                <div class="mode-option" data-mode="brief">
+                    <input type="radio" name="mode" id="brief" value="brief">
+                    <label for="brief">
+                        <strong>Brief</strong>
+                        <p>Simple and concise explanation within 50 words</p>
+                    </label>
+                </div>
+                <div class="mode-option" data-mode="detailed">
+                    <input type="radio" name="mode" id="detailed" value="detailed">
+                    <label for="detailed">
+                        <strong>Detailed</strong>
+                        <p>Comprehensive explanation within 100 words</p>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>➕ Custom Prompts</h2>
+            <div class="custom-prompt">
+                <div class="mode-option" data-mode="custom1">
+                    <input type="radio" name="mode" id="custom1" value="custom1">
+                    <label for="custom1">Custom Prompt 1</label>
+                </div>
+                <textarea id="custom1-text" placeholder="Enter your custom prompt template..."></textarea>
+                <div class="button-row">
+                    <button class="save" onclick="saveCustomPrompt('custom1')">Save</button>
+                </div>
+            </div>
+
+            <div class="custom-prompt">
+                <div class="mode-option" data-mode="custom2">
+                    <input type="radio" name="mode" id="custom2" value="custom2">
+                    <label for="custom2">Custom Prompt 2</label>
+                </div>
+                <textarea id="custom2-text" placeholder="Enter your custom prompt template..."></textarea>
+                <div class="button-row">
+                    <button class="save" onclick="saveCustomPrompt('custom2')">Save</button>
+                </div>
+            </div>
+
+            <div class="custom-prompt">
+                <div class="mode-option" data-mode="custom3">
+                    <input type="radio" name="mode" id="custom3" value="custom3">
+                    <label for="custom3">Custom Prompt 3</label>
+                </div>
+                <textarea id="custom3-text" placeholder="Enter your custom prompt template..."></textarea>
+                <div class="button-row">
+                    <button class="save" onclick="saveCustomPrompt('custom3')">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="status" class="status"></div>
+    </div>
+    <script src="settings.js"></script>
+</body>
+</html> 
